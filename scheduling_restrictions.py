@@ -53,7 +53,7 @@ def build_cqm():
         # Create labels for binary variables
         labels = [f"x_{employee}_{shift}" for shift in range(num_shifts)]
         
-        # Create binary variable objects for each employee, shift pair.
+        # Create binary variable objects for each employee's shift
         variables = [Binary(label) for label in labels]
 
         # Add a constraint over employee binaries
