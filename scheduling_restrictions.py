@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dimod import ConstrainedQuadraticModel
+from dimod import ConstrainedQuadraticModel, Binary, quicksum
 from dwave.system import LeapHybridCQMSampler
 
 # Set the solver we're going to use
@@ -48,13 +48,15 @@ def build_cqm():
     # Initialize the CQM object
     cqm = ConstrainedQuadraticModel()
 
-    # Represent shifts as a set of binary variables
-    # for each employee
+    # Represent shifts as a set of binary variables for each employee
     for employee, preference in preferences.items():
         # Create labels for binary variables
         labels = [f"x_{employee}_{shift}" for shift in range(num_shifts)]
+        
+        # Create binary variable objects for each employee, shift pair.
+        variables = [Binary(label) for label in labels]
     
-        # Add a discrete constraint over employee binaries
+        # Add a constraint over employee binaries
         cqm.add_discrete(labels, label=f"discrete_{employee}")
 
         # Incrementally add objective terms as list of (label, bias)
