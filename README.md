@@ -2,9 +2,9 @@
   https://img.shields.io/badge/Open%20in%20GitHub%20Codespaces-333?logo=github)](
   https://codespaces.new/dwave-training/employee-scheduling?quickstart=1)
   
-# The Employee Scheduling Problem
+# The Employee Scheduling Problem With Symbolic Variables
 
-Exercise for D-Wave training courses to demonstrate the CQM solver.
+Exercise for D-Wave in-person training course to demonstrate the CQM solver.
 
 ## Check the Original Program
 
@@ -16,8 +16,9 @@ Read through the code and take a look at how we're building up our constrained q
 
 1. Initialize the CQM object with `cqm = ConstrainedQuadraticModel()`.
 2. Create labels for binary variables for each employee in each shift.
-3. Add discrete constraints over employee binaries for each employee with `cqm.add_discrete(...)`.
-4. Add objective terms as linear biases based on the employee preferences with `cqm.objective.add_linear_from(...)`.
+3. Create binary variable objects for each employee's shift.
+4. Add constraints over employee binaries for each employee with `cqm.add_constraint(...)`.
+5. Add objective terms as linear biases based on the employee preferences with `cqm.objective.add_linear_from(...)`.
 
 ## Exercise 1
 
