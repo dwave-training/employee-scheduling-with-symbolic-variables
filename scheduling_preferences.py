@@ -53,7 +53,8 @@ def build_cqm():
         variables = [Binary(label) for label in labels]
 
         # Add a constraint over employee binaries
-        cqm.add_constraint(quicksum(variables[i] for i in range(num_shifts)) == 1, label=f"discrete_{[employee]}" )
+        cqm.add_constraint(quicksum(variables[i] for i in range(num_shifts)) == 1,
+                                                   label=f"discrete_{[employee]}" )
 
         # Incrementally add objective terms as list of (label, bias)
         cqm.objective.add_linear_from([*zip(labels, preference)])
