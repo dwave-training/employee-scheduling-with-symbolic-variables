@@ -43,6 +43,7 @@ def build_cqm():
 
     # Initialize the CQM object
     cqm = ConstrainedQuadraticModel()
+    variables = {}
 
     # Represent shifts as a set of binary variables for each employee
     for employee, preference in preferences.items():
@@ -50,10 +51,11 @@ def build_cqm():
         labels = [f"x_{employee}_{shift}" for shift in range(num_shifts)]
         
         # Create binary variable objects for each employee's shift
-        variables = [Binary(label) for label in labels]
+        for label in labels:
+            variables[label] = Binary(label)
 
         # Add a constraint over employee binaries
-        cqm.add_constraint(quicksum(variables[i] for i in range(num_shifts)) == 1,
+        cqm.add_constraint(quicksum(variables[f"x_{employee}_{i}"] for i in range(num_shifts)) == 1,
                                                    label=f"discrete_{[employee]}" )
 
         # Incrementally add objective terms as list of (label, bias)
